@@ -1,0 +1,11 @@
+pmg1,Program Name,?,0,CS
+factorial,Variable,?,2,DS
+n,Variable,?,4,DS
+results,Variable,?,6,DS
+Lit1,Literal,1,8,DS
+T1,Variable,?,10,DS
+T2,Variable,?,12,DS
+T3,Variable,?,14,DS
+T4,Variable,?,16,DS
+T5,Variable,?,18,DS
+T6,Variable,?,20,DS
