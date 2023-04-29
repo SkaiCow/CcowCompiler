@@ -1,37 +1,49 @@
-.data
-pmg1 dd ?
-factorial dd ?
-n dd ?
-results dd ?
-Lit1 dd 1
-T1 dd ?
-T2 dd ?
-T3 dd ?
-T4 dd ?
-T5 dd ?
-T6 dd ?
+section .data
+a dd 0
+Bob dd 0
+Jane dd 0
+b dd 0
+c dd 0
+ans dd 0
+Lit10 dd 10
+Lit2 dd 2
+Lit4 dd 4
+T1 dd 0
+T2 dd 0
+T3 dd 0
+T4 dd 0
+T5 dd 0
+T6 dd 0
+section .bss
+global _start
 
-.code
-pmg1: nop
-mov ax,[5]
-mov [factorial], ax
-mov ax,[1]
-mov [n], ax
-mov ax,[1]
-mov [results], ax
-W1: nop
-mov ax,[5]
-cmp ax,[n]
-JG L1
-mov ax,[n]
-mul [results]
+section .text
+
+_start:
+move ax,[Jane]
+add ax,[Bob]
+move [T1],ax
+mov ax,[Lit10]
+sub ax,[T1]
+mov [T2], ax
+mov dx, 0
+mov ax, [T2]
+mov bx, [Lit2]
+div bx
 mov [T1], ax
-mov ax,[T1]
-mov [results],ax
-move ax,[1]
-add ax,[n]
-move [T2],ax
+mov ax,[Lit4]
+mul [T1]
+mov [T2], ax
 mov ax,[T2]
-mov [n],ax
-jmp W1
-L1: nop
+mul [a]
+mov [T1], ax
+move ax,[c]
+add ax,[b]
+move [T3],ax
+mov dx, 0
+mov ax, [T1]
+mov bx, [T3]
+div bx
+mov [T4], ax
+mov ax,[T4]
+mov [ans], ax

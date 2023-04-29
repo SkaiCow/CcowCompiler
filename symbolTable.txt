@@ -1,11 +1,16 @@
-pmg1,Program Name,?,0,CS
-factorial,Variable,?,2,DS
-n,Variable,?,4,DS
-results,Variable,?,6,DS
-Lit1,Literal,1,8,DS
-T1,Variable,?,10,DS
-T2,Variable,?,12,DS
-T3,Variable,?,14,DS
-T4,Variable,?,16,DS
-T5,Variable,?,18,DS
-T6,Variable,?,20,DS
+Pmg1,Program Name,?,0,CS
+a,Variable,0,2,DS
+Bob,Variable,0,4,DS
+Jane,Variable,0,6,DS
+b,Variable,0,8,DS
+c,Variable,0,10,DS
+ans,Variable,0,12,DS
+Lit10,Literal,10,14,DS
+Lit2,Literal,2,16,DS
+Lit4,Literal,4,18,DS
+T1,Variable,0,20,DS
+T2,Variable,0,22,DS
+T3,Variable,0,24,DS
+T4,Variable,0,26,DS
+T5,Variable,0,28,DS
+T6,Variable,0,30,DS

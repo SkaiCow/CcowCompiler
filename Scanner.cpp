@@ -25,23 +25,12 @@ class Scanner{
             // TABLE TIME with an DNF
             int nextStage = 0;
             while (!codeFile.eof())
-            {
+            {   
+                previousToken = token;
+                previousType = type;
                 getNextToken();
                 switch (nextStage)
                 {
-                case 0:
-                case 2:
-                case 3:
-                case 5:
-                case 9:
-                case 10:
-                case 12:
-                case 13:
-                case 14:
-                case 15:
-                case 16:
-                    
-                break;
                 case 1:
                     //cout << token + "   name of program   " + to_string(type) + "\n";
                     addSymbol(token, "Program Name", "?", 0, "CS");
@@ -50,20 +39,14 @@ class Scanner{
                     //cout << token + "   name of const   " + to_string(type) + "\n";
                     addSymbol(token,"ConstVariable","?",DSAddress,"DS");
                     break;
-                case 6:
-                    //cout << token + "   give value to const   " + to_string(type) + "\n";
-                    symbolList.top().value = token;
-                    break;
                 case 8:{
                     //cout << token + "   name of var   " + to_string(type) + "\n";
-                    addSymbol(token,"Variable","?",DSAddress,"DS");
+                    addSymbol(token,"Variable","0",DSAddress,"DS");
                     break;
                 }
-                case 11:
-                    //cout << token + "   variable or int   " + to_string(type) + "\n";
-                    if(type == integer){
-                        addSymbol("Lit"+token,"Literal",token,DSAddress,"DS");
-                    }
+                case 7:
+                    //cout << previousToken + "   litera;   " + to_string(previousType) + "\n";
+                    addSymbol("Lit"+previousToken,"Literal",previousToken,DSAddress,"DS");
                     break;
                 default:
                     //cout << "this is default response\n";
@@ -76,12 +59,12 @@ class Scanner{
                 //get the next stage to go to
                 nextStage = table[nextStage][type];
             }
-            addSymbol("T1","Variable","?",DSAddress,"DS");
-            addSymbol("T2","Variable","?",DSAddress,"DS");
-            addSymbol("T3","Variable","?",DSAddress,"DS");
-            addSymbol("T4","Variable","?",DSAddress,"DS");
-            addSymbol("T5","Variable","?",DSAddress,"DS");
-            addSymbol("T6","Variable","?",DSAddress,"DS");
+            addSymbol("T1","Variable","0",DSAddress,"DS");
+            addSymbol("T2","Variable","0",DSAddress,"DS");
+            addSymbol("T3","Variable","0",DSAddress,"DS");
+            addSymbol("T4","Variable","0",DSAddress,"DS");
+            addSymbol("T5","Variable","0",DSAddress,"DS");
+            addSymbol("T6","Variable","0",DSAddress,"DS");
             exportSymbols();
             tokenFile << "T,termate\n";
             tokenFile.close();
@@ -99,37 +82,22 @@ class Scanner{
             integer, VAR, comma, CONST,
             plus, sub, star, slash,
             equalEqual, greaterEqual, lessEqual, bangEqual, greater, less, bang,
-            IF, WHILE, FOR, ENDIF, THEN, ELSE, DO, ENDWHILE,
+            IF, WHILE, FOR, ENDIF, THEN, ELSE, DO, ENDWHILE,INPUT,PRINT,
             other
         };
         string token = "";
+        string previousToken = "";
         TokenTypes type;
+        TokenTypes previousType;
         string typeString = "";
         vector<vector<int>> table;
-        /*int table[14][16] = {
-            {1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,3,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,8,4,10,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,6,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,3,-1,-1,-1,-1},
-            {-1,-1,-1,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,8,3,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,11,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,12,12,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,3,11,11,11,11},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,3,11,11,11,11},
-        };*/
         
         map<string, TokenTypes> keywords {
             {"class",CLASS},{"var",VAR},{"const",CONST},{"if",IF},{"for",FOR},{"while",WHILE},
-            {"then",THEN},{"endif",ENDIF},{"else",ELSE},{"do",DO},{"endwhile",ENDWHILE}
+            {"then",THEN},{"endif",ENDIF},{"else",ELSE},{"do",DO},{"endwhile",ENDWHILE},{"input",INPUT},{"print",PRINT}
         };
         TokenTypes getNextToken(){
             token = sHead;
-            
             switch (sHead)
             {
             case 'A'...'z':

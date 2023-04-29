@@ -69,7 +69,7 @@ enum TokenTypes{
             tplus, sub, star, slash,
             equalEqual, greaterEqual, lessEqual, bangEqual, tgreater, tless, bang,
             IF, WHILE, FOR,
-            other, terminater, ENDIF, THEN, ELSE, DO, ENDWHILE
+            other, terminater, ENDIF, THEN, ELSE, DO, ENDWHILE, INPUT, PRINT
         };
 map<string,TokenTypes> TokenTypeMap {
     {"class",CLASS},
@@ -102,13 +102,15 @@ map<string,TokenTypes> TokenTypeMap {
     {"else",ELSE},
     {"do",DO},
     {"endwhile",ENDWHILE},
-    {"comma",comma}
+    {"comma",comma},
+    {"print", PRINT},
+    {"inptu",INPUT}
     };
 enum opStrings{
             noOP,opClass,
             opPlus, opSub, opStar, opSlash,
             opConstEqual, opVarEqual, opEqual, opGreater, opLess, opGreaterEqual, opLessEqual,
-            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen
+            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen, opPrint
         };
 map<string,opStrings> opMap{
     {"noOP",noOP},
@@ -129,7 +131,8 @@ map<string,opStrings> opMap{
     {"else",opELSE},
     {"ifthenelseendif",opIFTHENELSE},
     {"whiledoendwhile",opWhile},
-    {"()",opOpenCloseParen}
+    {"()",opOpenCloseParen},
+    {"print",opPrint}
 };
 
 class SyntaxAnalyzer{
@@ -142,7 +145,7 @@ class SyntaxAnalyzer{
             addTokenToStack(readNextToken());
             PreviousToken = tokenStack.top();
             ActiveToken = readNextToken();
-            asmFile<<".code"<<endl;
+            asmFile<<"section .text"<<endl;
             bool hasError = false;
             while (!hasError)
             {
@@ -150,12 +153,12 @@ class SyntaxAnalyzer{
                     cout<<"The program has succesfully been interpreted."<<endl;
                     break;
                 }
-                //cout<<"previous token: " + PreviousToken.tokenType + " " + to_string(TokenTypeMap[PreviousToken.tokenType]) + "  Active token: " + ActiveToken.tokenType + " " + to_string(TokenTypeMap[ActiveToken.tokenType]);
+                cout<<"previous token: " + PreviousToken.tokenType + " " + to_string(TokenTypeMap[PreviousToken.tokenType]) + "  Active token: " + ActiveToken.tokenType + " " + to_string(TokenTypeMap[ActiveToken.tokenType]);
                 char presedence = getPriorityChar(PreviousToken.tokenType, ActiveToken.tokenType);
                 switch (presedence)
                 {
                 case '<':
-                    //cout<<"  Pres: <"<<endl;
+                    cout<<"  Pres: <"<<endl;
                     addTokenToStack(ActiveToken);
                     if(TokenTypeMap[ActiveToken.tokenType] != TokenTypeMap["variable"] || TokenTypeMap[ActiveToken.tokenType] != TokenTypeMap["integer"])
                     {
@@ -164,7 +167,7 @@ class SyntaxAnalyzer{
                     ActiveToken = readNextToken();
                     break;
                 case '=':
-                    //cout<<"  Pres: ="<<endl;
+                    cout<<"  Pres: ="<<endl;
                     addTokenToStack(ActiveToken);
                     if(TokenTypeMap[ActiveToken.tokenType] != TokenTypeMap["variable"] || TokenTypeMap[ActiveToken.tokenType] != TokenTypeMap["integer"])
                     {
@@ -173,7 +176,7 @@ class SyntaxAnalyzer{
                     ActiveToken = readNextToken();
                     break;
                 case '>':
-                    //cout<<"  Pres: >"<<endl;
+                    cout<<"  Pres: >"<<endl;
                     popOpFromStack();
                     break;
                 case '!':
@@ -251,6 +254,10 @@ class SyntaxAnalyzer{
                 fixUp.push("L"+to_string(fixUpNumber));
                 fixUpNumber++;
                 break;
+            case other:
+                if(t.tokenType == "integer"){
+                    t.token = "Lit"+t.token;
+                }
             default:
                 break;
             }
@@ -426,13 +433,17 @@ class SyntaxAnalyzer{
                 addTokenToStack(tvalue);
             }
                 break;
+            case opPrint:{
+                
+            }
+                break;
             default:
                 break;
             }
             checkForTvalues(A,B);
         }
         void writeSybolTableToASM(){
-            asmFile<<".data"<<endl;
+            asmFile<<"section .data"<<endl;
             ifstream infile("./symbolTable.txt");
             while (true)
             {
@@ -462,8 +473,10 @@ class SyntaxAnalyzer{
                     }
                 }
                 if(infile.eof()) break;
-                cout<<name + " " + type + " " + value <<endl;
-                asmFile<<name + " dd " + value<<endl;
+                if(dataType == "DS"){
+                    cout<<name + " " + type + " " + value <<endl;
+                    asmFile<<name + " dd " + value<<endl;
+                }
             }
             asmFile<<endl;
         }
