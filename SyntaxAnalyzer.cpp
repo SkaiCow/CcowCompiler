@@ -333,9 +333,9 @@ class SyntaxAnalyzer{
             {
             case opPlus:{
                 Token tvalue = {"T"+to_string(getTNumber()),"variable"};
-                asmFile<<"move ax,["<<A<<"]"<<endl;
+                asmFile<<"mov ax,["<<A<<"]"<<endl;
                 asmFile<<"add ax,["<<B<<"]"<<endl;
-                asmFile<<"move ["<<tvalue.token<<"],ax"<<endl;
+                asmFile<<"mov ["<<tvalue.token<<"],ax"<<endl;
                 addTokenToStack(tvalue);
                 }
                 break;
