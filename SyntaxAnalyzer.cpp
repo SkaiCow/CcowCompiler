@@ -434,7 +434,11 @@ class SyntaxAnalyzer{
             }
                 break;
             case opPrint:{
-                
+                asmFile<<"move ax, ["+A+"]"<<endl;
+                asmFile<<"move eax, 4"<<endl;
+                asmFile<<"move ebx, 1"<<endl;
+                asmFile<<"move ecx, num"<<endl;
+                asmFile<<"int 80h"<<endl;
             }
                 break;
             default:

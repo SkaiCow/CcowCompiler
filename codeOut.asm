@@ -1,4 +1,3 @@
-sys_exit equ 1
 
 section .data
 a dd 1
@@ -16,7 +15,7 @@ T3 dd 0
 T4 dd 0
 T5 dd 0
 T6 dd 0
-userMsg db 'Enter An integer: '
+    userMsg db 'Enter An integer: '
     lenUserMsg equ $-userMsg
     displayMsg db 'You entered: '
     lenDisplayMsg equ $-displayMsg
@@ -57,10 +56,10 @@ mov bx, [Lit2]
 div bx
 mov [T1], ax
 mov ax,[Lit4]
-mul word[T1]
+mul [T1]
 mov [T2], ax
 mov ax,[T2]
-mul word[a]
+mul [a]
 mov [T1], ax
 mov ax,[c]
 add ax,[b]
@@ -72,21 +71,13 @@ div bx
 mov [T4], ax
 mov ax,[T4]
 mov [ans], ax
-call PrintString
-call GetAnInteger
+move ax, [ans]
+move eax, 4
+move ebx, 1
+move ecx, num
+int 80h
 call fini
 
-GetAnInteger:
-    mov eax, 3
-    mov ebx, 2
-    mov ecx, num
-    mov edx, 6
-    int 0x80
-    mov edx, eax
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, num
-    int 80h
 
 PrintString:
     push ax
@@ -101,6 +92,6 @@ PrintString:
     ret
 
 fini:
-    mov eax, sys_exit
+    mov eax, 1
     xor ebx,ebx
     int 80h
