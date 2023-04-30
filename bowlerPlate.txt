@@ -1,0 +1,63 @@
+section .data
+    userMsg db 'Enter An integer: '
+    lenUserMsg equ $-userMsg
+    displayMsg db 'You entered: '
+    lenDisplayMsg equ $-displayMsg
+    newline db 0xA
+
+    Ten dw 10
+
+    printTempchar db 'Tempchar = : '
+    lenprintTempchar equ $-printTempchar
+
+    Result db 'Ans = '
+    ResultValue db 'aaaaa'
+    db 0xA
+    ResultEnd equ $-Result
+
+    num times 6 db 'ABCDEF'
+    numEnd equ $-num
+section .bss
+
+    Tempchar RESB 1
+    testchar RESB 1
+    ReadInt RESW 1
+    teampint RESW 1
+    negflag RESB 1
+
+
+PrintString:
+    push ax
+    push dx
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, userMsg
+    mov edx, lenUserMsg
+    int 80h
+    pop dx
+    pop ax
+    ret
+
+ConvertStringToInteger:
+    mov ax,0
+    mov [ReadInt],ax
+    mov ecx,num
+    mov bx,0
+    mov bl, byte[ecx]
+Next: sub bl, '0'
+    mov ax,[ReadInt]
+    mov dx,10
+    mul dx
+    add ax,bx
+    mov [ReadInt], ax
+    mov bx,0
+    add ecx,1
+    mov bl, byte[ecx]
+    cmp bl,0xA
+    jne Next
+    ret
+    
+fini:
+    mov eax, sys_exit
+    xor ebx,ebx
+    int 80h
