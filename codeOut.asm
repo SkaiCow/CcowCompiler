@@ -1,10 +1,12 @@
+sys_exit equ 1
+
 section .data
-a dd 0
-Bob dd 0
-Jane dd 0
-b dd 0
-c dd 0
-ans dd 0
+a dd 1
+Bob dd 1
+Jane dd 1
+b dd 1
+c dd 1
+ans dd 1
 Lit10 dd 10
 Lit2 dd 2
 Lit4 dd 4
@@ -40,8 +42,9 @@ section .bss
     teampint RESW 1
     negflag RESB 1
 
+global _start
 section .text
-Pmg1: nop
+_start: nop
 mov ax,[Jane]
 add ax,[Bob]
 mov [T1],ax
@@ -54,10 +57,10 @@ mov bx, [Lit2]
 div bx
 mov [T1], ax
 mov ax,[Lit4]
-mul [T1]
+mul word[T1]
 mov [T2], ax
 mov ax,[T2]
-mul [a]
+mul word[a]
 mov [T1], ax
 mov ax,[c]
 add ax,[b]
@@ -70,8 +73,20 @@ mov [T4], ax
 mov ax,[T4]
 mov [ans], ax
 call PrintString
+call GetAnInteger
 call fini
 
+GetAnInteger:
+    mov eax, 3
+    mov ebx, 2
+    mov ecx, num
+    mov edx, 6
+    int 0x80
+    mov edx, eax
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, num
+    int 80h
 
 PrintString:
     push ax
