@@ -14,15 +14,37 @@ T3 dd 0
 T4 dd 0
 T5 dd 0
 T6 dd 0
+userMsg db 'Enter An integer: '
+    lenUserMsg equ $-userMsg
+    displayMsg db 'You entered: '
+    lenDisplayMsg equ $-displayMsg
+    newline db 0xA
+
+    Ten dw 10
+
+    printTempchar db 'Tempchar = : '
+    lenprintTempchar equ $-printTempchar
+
+    Result db 'Ans = '
+    ResultValue db 'aaaaa'
+    db 0xA
+    ResultEnd equ $-Result
+
+    num times 6 db 'ABCDEF'
+    numEnd equ $-num
 section .bss
-global _start
+
+    Tempchar RESB 1
+    testchar RESB 1
+    ReadInt RESW 1
+    teampint RESW 1
+    negflag RESB 1
 
 section .text
-
-_start:
-move ax,[Jane]
+Pmg1: nop
+mov ax,[Jane]
 add ax,[Bob]
-move [T1],ax
+mov [T1],ax
 mov ax,[Lit10]
 sub ax,[T1]
 mov [T2], ax
@@ -37,9 +59,9 @@ mov [T2], ax
 mov ax,[T2]
 mul [a]
 mov [T1], ax
-move ax,[c]
+mov ax,[c]
 add ax,[b]
-move [T3],ax
+mov [T3],ax
 mov dx, 0
 mov ax, [T1]
 mov bx, [T3]
@@ -47,3 +69,23 @@ div bx
 mov [T4], ax
 mov ax,[T4]
 mov [ans], ax
+call PrintString
+call fini
+
+
+PrintString:
+    push ax
+    push dx
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, userMsg
+    mov edx, lenUserMsg
+    int 80h
+    pop dx
+    pop ax
+    ret
+
+fini:
+    mov eax, sys_exit
+    xor ebx,ebx
+    int 80h
