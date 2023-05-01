@@ -1,14 +1,18 @@
-Pgm1,Program Name,?,0,CS
-M,Variable,0,2,DS
-N,Variable,0,4,DS
-Y,Variable,0,6,DS
-X,Variable,0,8,DS
-Lit2,Literal,2,10,DS
-Lit5,Literal,5,12,DS
-Lit18,Literal,18,14,DS
-T1,Variable,0,16,DS
-T2,Variable,0,18,DS
-T3,Variable,0,20,DS
-T4,Variable,0,22,DS
-T5,Variable,0,24,DS
-T6,Variable,0,26,DS
+Pmg1,Program Name,?,0,CS
+a,Variable,0,2,DS
+Bob,Variable,0,4,DS
+Jane,Variable,0,6,DS
+b,Variable,0,8,DS
+c,Variable,0,10,DS
+Lit20,Literal,20,12,DS
+Lit26,Literal,26,14,DS
+ans,Variable,0,16,DS
+Lit10,Literal,10,18,DS
+Lit2,Literal,2,20,DS
+Lit4,Literal,4,22,DS
+T1,Variable,0,24,DS
+T2,Variable,0,26,DS
+T3,Variable,0,28,DS
+T4,Variable,0,30,DS
+T5,Variable,0,32,DS
+T6,Variable,0,34,DS

@@ -110,7 +110,7 @@ enum opStrings{
             noOP,opClass,
             opPlus, opSub, opStar, opSlash,
             opConstEqual, opVarEqual, opEqual, opGreater, opLess, opGreaterEqual, opLessEqual,
-            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen, opPrint, opInput
+            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen, opPrint, opInput, opEndPmg
         };
 map<string,opStrings> opMap{
     {"noOP",noOP},
@@ -133,7 +133,8 @@ map<string,opStrings> opMap{
     {"whiledoendwhile",opWhile},
     {"()",opOpenCloseParen},
     {"print",opPrint},
-    {"input",opInput}
+    {"input",opInput},
+    {"{}",opEndPmg}
 };
 
 class SyntaxAnalyzer{
@@ -437,18 +438,22 @@ class SyntaxAnalyzer{
             case opPrint:{
                 asmFile<<"mov ax, ["+A+"]"<<endl;
                 asmFile<<"call ConvertIntegerToString"<<endl;
-                asmFile<<"mov ax, ["+A+"]"<<endl;
                 asmFile<<"mov eax, 4"<<endl;
                 asmFile<<"mov ebx, 1"<<endl;
                 asmFile<<"mov ecx, Result"<<endl;
-                asmFile<<"mov ecx, ResultEnd"<<endl;
+                asmFile<<"mov edx, ResultEnd"<<endl;
                 asmFile<<"int 80h"<<endl;
             }
+                break;
             case opInput:{
+                asmFile<<"call PrintString"<<endl;
                 asmFile<<"call GetAnInteger"<<endl;
                 asmFile<<"mov ["+A+"],eax"<<endl;
             }
                 break;
+            case opEndPmg:{
+                asmFile<<"call fini"<<endl;
+            }
             default:
                 break;
             }
