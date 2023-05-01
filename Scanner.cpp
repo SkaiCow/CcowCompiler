@@ -41,6 +41,7 @@ class Scanner{
                     break;
                 }
                 case 21:
+                case 22:
                 case 7:
                     //cout << previousToken + "   litera;   " + to_string(previousType) + "\n";
                     addSymbol("Lit"+previousToken,"Literal",previousToken,DSAddress,"DS");

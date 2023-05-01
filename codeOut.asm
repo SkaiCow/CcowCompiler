@@ -2,6 +2,9 @@ section .data
 number dd 0
 results dd 0
 Lit0 dd 0
+Lit2 dd 2
+Lit3 dd 3
+Lit4 dd 4
 Lit1 dd 1
 T1 dd 0
 T2 dd 0
