@@ -56,7 +56,19 @@ Next: sub bl, '0'
     cmp bl,0xA
     jne Next
     ret
-    
+
+ConvertIntegerToString:
+    mov ebx, ResultValue + 4
+ConvertLoop: sub dx, dx
+    mov cx,10
+    div cx
+    add dl,'0'
+    mov [ebx],dl
+    dec ebx
+    cmp ebx,ResultValue
+    jge ConvertLoop
+    ret
+
 fini:
     mov eax, sys_exit
     xor ebx,ebx

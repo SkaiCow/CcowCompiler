@@ -71,10 +71,12 @@ div bx
 mov [T4], ax
 mov ax,[T4]
 mov [ans], ax
-move ax, [ans]
-move eax, 4
-move ebx, 1
-move ecx, num
+mov ax, [ans]
+call ConvertIntegerToString:
+mov ax, [ans]
+mov eax, 4
+mov ebx, 1
+mov ecx, num
 int 80h
 call fini
 
@@ -90,6 +92,39 @@ PrintString:
     pop dx
     pop ax
     ret
+
+
+ConvertStringToInteger:
+    mov ax,0
+    mov [ReadInt],ax
+    mov ecx,num
+    mov bx,0
+    mov bl, byte[ecx]
+Next: sub bl, '0'
+    mov ax,[ReadInt]
+    mov dx,10
+    mul dx
+    add ax,bx
+    mov [ReadInt], ax
+    mov bx,0
+    add ecx,1
+    mov bl, byte[ecx]
+    cmp bl,0xA
+    jne Next
+    ret
+
+ConvertIntegerToString:
+    mov ebx, ResultValue + 4
+ConvertLoop: sub dx, dx
+    mov cx,10
+    div cx
+    add dl,'0'
+    mov [ebx],dl
+    dec ebx
+    cmp ebx,ResultValue
+    jge ConvertLoop
+    ret
+    
 
 fini:
     mov eax, 1
