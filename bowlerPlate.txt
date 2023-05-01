@@ -38,6 +38,12 @@ PrintString:
     pop ax
     ret
 
+GetAnInteger:
+    mov eax,3
+    mov edx,2
+    mov ecx,num
+    mov edx,6
+    int 80h
 ConvertStringToInteger:
     mov ax,0
     mov [ReadInt],ax
