@@ -35,15 +35,12 @@ class Scanner{
                     //cout << token + "   name of program   " + to_string(type) + "\n";
                     addSymbol(token, "Program Name", "?", 0, "CS");
                     break;
-                case 4:
-                    //cout << token + "   name of const   " + to_string(type) + "\n";
-                    addSymbol(token,"ConstVariable","?",DSAddress,"DS");
-                    break;
                 case 8:{
                     //cout << token + "   name of var   " + to_string(type) + "\n";
                     addSymbol(token,"Variable","0",DSAddress,"DS");
                     break;
                 }
+                case 21:
                 case 7:
                     //cout << previousToken + "   litera;   " + to_string(previousType) + "\n";
                     addSymbol("Lit"+previousToken,"Literal",previousToken,DSAddress,"DS");

@@ -2,6 +2,10 @@ section .data
 M dd 0
 N dd 0
 Y dd 0
+X dd 0
+Lit2 dd 2
+Lit5 dd 5
+Lit18 dd 18
 T1 dd 0
 T2 dd 0
 T3 dd 0
@@ -33,23 +37,23 @@ section .bss
     ReadInt RESW 1
     teampint RESW 1
     negflag RESB 1
-gloabl Pgm1
+global Pgm1
 section .text
 Pgm1: nop
-mov ax,[Lit3]
-mov [M],ax
 mov ax,[Lit2]
 mov [N],ax
 mov ax,[Lit5]
 mov [Y],ax
+call GetAnInteger
+mov [M],eax
 mov ax,[N]
-mul [M]
+mul byte[M]
 mov [T1], ax
 mov ax,[Lit18]
 add ax,[T1]
 mov [T2],ax
-mov ax,[Y]
-sub ax,[T2]
+mov ax,[T2]
+sub ax,[Y]
 mov [T1], ax
 mov ax,[T1]
 mov [X],ax
@@ -61,6 +65,8 @@ mov ebx, 1
 mov ecx, Result
 mov ecx, ResultEnd
 int 80h
+call GetAnInteger
+mov [X],eax
 
 PrintString:
     push ax
@@ -106,6 +112,6 @@ ConvertLoop: sub dx, dx
     ret
 
 fini:
-    mov eax, sys_exit
+    mov eax, 1
     xor ebx,ebx
     int 80h

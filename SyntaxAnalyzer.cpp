@@ -104,13 +104,13 @@ map<string,TokenTypes> TokenTypeMap {
     {"endwhile",ENDWHILE},
     {"comma",comma},
     {"print", PRINT},
-    {"inptu",INPUT}
+    {"input",INPUT}
     };
 enum opStrings{
             noOP,opClass,
             opPlus, opSub, opStar, opSlash,
             opConstEqual, opVarEqual, opEqual, opGreater, opLess, opGreaterEqual, opLessEqual,
-            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen, opPrint
+            opEqualEqual, opIFThen, opELSE, opIFTHENELSE, opWhile, opOpenCloseParen, opPrint, opInput
         };
 map<string,opStrings> opMap{
     {"noOP",noOP},
@@ -132,7 +132,8 @@ map<string,opStrings> opMap{
     {"ifthenelseendif",opIFTHENELSE},
     {"whiledoendwhile",opWhile},
     {"()",opOpenCloseParen},
-    {"print",opPrint}
+    {"print",opPrint},
+    {"input",opInput}
 };
 
 class SyntaxAnalyzer{
@@ -341,8 +342,8 @@ class SyntaxAnalyzer{
                 break;
             case opSub:{
                 Token tvalue = {"T"+to_string(getTNumber()),"variable"};
-                asmFile<<"mov ax,["<<A<<"]"<<endl;
-                asmFile<<"sub ax,["<<B<<"]"<<endl;
+                asmFile<<"mov ax,["<<B<<"]"<<endl;
+                asmFile<<"sub ax,["<<A<<"]"<<endl;
                 asmFile<<"mov ["<<tvalue.token<<"], ax"<<endl;
                 addTokenToStack(tvalue);
             }
@@ -350,7 +351,7 @@ class SyntaxAnalyzer{
             case opStar:{
                 Token tvalue = {"T"+to_string(getTNumber()),"variable"};
                 asmFile<<"mov ax,["<<A<<"]"<<endl;
-                asmFile<<"mul ["<<B<<"]"<<endl;
+                asmFile<<"mul byte["<<B<<"]"<<endl;
                 asmFile<<"mov ["<<tvalue.token<<"], ax"<<endl;
                 addTokenToStack(tvalue);
             }
@@ -442,6 +443,10 @@ class SyntaxAnalyzer{
                 asmFile<<"mov ecx, Result"<<endl;
                 asmFile<<"mov ecx, ResultEnd"<<endl;
                 asmFile<<"int 80h"<<endl;
+            }
+            case opInput:{
+                asmFile<<"call GetAnInteger"<<endl;
+                asmFile<<"mov ["+A+"],eax"<<endl;
             }
                 break;
             default:

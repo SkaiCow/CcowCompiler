@@ -8,10 +8,8 @@ M,variable
 N,variable
 ,,comma
 Y,variable
-;,semiCol
-M,variable
-=,equal
-3,integer
+,,comma
+X,variable
 ;,semiCol
 N,variable
 =,equal
@@ -20,6 +18,9 @@ N,variable
 Y,variable
 =,equal
 5,integer
+;,semiCol
+input,input
+M,variable
 ;,semiCol
 X,variable
 =,equal
