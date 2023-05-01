@@ -69,6 +69,7 @@ class Scanner{
         }
     private:
         stack<Symbol> symbolList;
+        map<string,Symbol> symbolMap;
         int DSAddress = 0;
         ifstream codeFile;
         ofstream tokenFile;
@@ -243,6 +244,8 @@ class Scanner{
             
         }
         void addSymbol(string sym, string classif, string value, int adrs, string seg){
+            if(symbolMap.find(sym) != symbolMap.end()) return;
+                
             Symbol tempSymbol = {
                 sym,
                 classif,
@@ -251,6 +254,7 @@ class Scanner{
                 seg
             };
             symbolList.push(tempSymbol);
+            symbolMap[sym] = tempSymbol;
             DSAddress += 2;
         }
         void exportSymbols(){

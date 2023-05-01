@@ -3,9 +3,7 @@ factorial dd 0
 n dd 0
 Lit1 dd 1
 results dd 0
-Lit1 dd 1
 Lit5 dd 5
-Lit1 dd 1
 T1 dd 0
 T2 dd 0
 T3 dd 0
