@@ -379,26 +379,26 @@ class SyntaxAnalyzer{
             }
                 break;
             case opGreater:{
-                asmFile<<"mov ax,["+A+"]"<<endl;
-                asmFile<<"cmp ax,["+B+"]"<<endl;
+                asmFile<<"mov ax,["+B+"]"<<endl;
+                asmFile<<"cmp ax,["+A+"]"<<endl;
                 asmFile<<"JLE "+fixUp.top()<<endl;
             }
                 break;
             case opGreaterEqual:{
-                asmFile<<"mov ax,["+A+"]"<<endl;
-                asmFile<<"cmp ax,["+B+"]"<<endl;
+                asmFile<<"mov ax,["+B+"]"<<endl;
+                asmFile<<"cmp ax,["+A+"]"<<endl;
                 asmFile<<"JL "+fixUp.top()<<endl;
             }
                 break;
             case opLess:{
-                asmFile<<"mov ax,["+A+"]"<<endl;
-                asmFile<<"cmp ax,["+B+"]"<<endl;
+                asmFile<<"mov ax,["+B+"]"<<endl;
+                asmFile<<"cmp ax,["+A+"]"<<endl;
                 asmFile<<"JGE "+fixUp.top()<<endl;
             }
                 break;
             case opLessEqual:{
-                asmFile<<"mov ax,["+A+"]"<<endl;
-                asmFile<<"cmp ax,["+B+"]"<<endl;
+                asmFile<<"mov ax,["+B+"]"<<endl;
+                asmFile<<"cmp ax,["+A+"]"<<endl;
                 asmFile<<"JG "+fixUp.top()<<endl;
             }
                 break;
@@ -408,8 +408,8 @@ class SyntaxAnalyzer{
             }
                 break;
             case opEqualEqual:{
-                asmFile<<"mov ax,["+A+"]"<<endl;
-                asmFile<<"cmp ax,["+B+"]"<<endl;
+                asmFile<<"mov ax,["+B+"]"<<endl;
+                asmFile<<"cmp ax,["+A+"]"<<endl;
                 asmFile<<"JNE "+fixUp.top()<<endl;
             }
                 break;

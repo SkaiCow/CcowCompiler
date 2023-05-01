@@ -1,10 +1,10 @@
 section .data
-number dd 0
+factorial dd 0
+n dd 0
+Lit1 dd 1
 results dd 0
-Lit0 dd 0
-Lit2 dd 2
-Lit3 dd 3
-Lit4 dd 4
+Lit1 dd 1
+Lit5 dd 5
 Lit1 dd 1
 T1 dd 0
 T2 dd 0
@@ -40,26 +40,23 @@ section .bss
 global _start
 section .text
 _start:
-main: nop
+pmg1: nop
 call PrintString
 call GetAnInteger
-mov [number],eax
-mov ax,[Lit0]
-mov [results],ax
-mov ax,[Lit2]
-cmp ax,[number]
-JLE L1
-mov ax,[Lit3]
-cmp ax,[number]
-JLE L2
-mov ax,[Lit4]
-cmp ax,[number]
-JL L3
+mov [factorial],eax
 mov ax,[Lit1]
+mov [n], ax
+mov ax,[Lit1]
+mov [results], ax
+W1: nop
+mov ax,[n]
+cmp ax,[Lit5]
+JG L1
+mov ax,[n]
+mul byte[results]
+mov [T1], ax
+mov ax,[T1]
 mov [results],ax
-L3: nop
-L2: nop
-L1: nop
 mov ax, [results]
 call ConvertIntegerToString
 mov eax, 4
@@ -67,6 +64,13 @@ mov ebx, 1
 mov ecx, Result
 mov edx, ResultEnd
 int 80h
+mov ax,[Lit1]
+add ax,[n]
+mov [T2],ax
+mov ax,[T2]
+mov [n],ax
+jmp W1
+L1: nop
 call fini
 
 PrintString:
