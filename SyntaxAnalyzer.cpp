@@ -434,10 +434,13 @@ class SyntaxAnalyzer{
             }
                 break;
             case opPrint:{
-                asmFile<<"move ax, ["+A+"]"<<endl;
-                asmFile<<"move eax, 4"<<endl;
-                asmFile<<"move ebx, 1"<<endl;
-                asmFile<<"move ecx, num"<<endl;
+                asmFile<<"mov ax, ["+A+"]"<<endl;
+                asmFile<<"call ConvertIntegerToString"<<endl;
+                asmFile<<"mov ax, ["+A+"]"<<endl;
+                asmFile<<"mov eax, 4"<<endl;
+                asmFile<<"mov ebx, 1"<<endl;
+                asmFile<<"mov ecx, Result"<<endl;
+                asmFile<<"mov ecx, ResultEnd"<<endl;
                 asmFile<<"int 80h"<<endl;
             }
                 break;

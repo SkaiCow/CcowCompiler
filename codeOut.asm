@@ -1,14 +1,7 @@
-
 section .data
-a dd 1
-Bob dd 1
-Jane dd 1
-b dd 1
-c dd 1
-ans dd 1
-Lit10 dd 10
-Lit2 dd 2
-Lit4 dd 4
+M dd 0
+N dd 0
+Y dd 0
 T1 dd 0
 T2 dd 0
 T3 dd 0
@@ -40,46 +33,34 @@ section .bss
     ReadInt RESW 1
     teampint RESW 1
     negflag RESB 1
-
-global _start
+gloabl Pgm1
 section .text
-_start: nop
-mov ax,[Jane]
-add ax,[Bob]
-mov [T1],ax
-mov ax,[Lit10]
-sub ax,[T1]
-mov [T2], ax
-mov dx, 0
-mov ax, [T2]
-mov bx, [Lit2]
-div bx
+Pgm1: nop
+mov ax,[Lit3]
+mov [M],ax
+mov ax,[Lit2]
+mov [N],ax
+mov ax,[Lit5]
+mov [Y],ax
+mov ax,[N]
+mul [M]
 mov [T1], ax
-mov ax,[Lit4]
-mul [T1]
-mov [T2], ax
-mov ax,[T2]
-mul [a]
+mov ax,[Lit18]
+add ax,[T1]
+mov [T2],ax
+mov ax,[Y]
+sub ax,[T2]
 mov [T1], ax
-mov ax,[c]
-add ax,[b]
-mov [T3],ax
-mov dx, 0
-mov ax, [T1]
-mov bx, [T3]
-div bx
-mov [T4], ax
-mov ax,[T4]
-mov [ans], ax
-mov ax, [ans]
-call ConvertIntegerToString:
-mov ax, [ans]
+mov ax,[T1]
+mov [X],ax
+mov ax, [X]
+call ConvertIntegerToString
+mov ax, [X]
 mov eax, 4
 mov ebx, 1
-mov ecx, num
+mov ecx, Result
+mov ecx, ResultEnd
 int 80h
-call fini
-
 
 PrintString:
     push ax
@@ -92,7 +73,6 @@ PrintString:
     pop dx
     pop ax
     ret
-
 
 ConvertStringToInteger:
     mov ax,0
@@ -124,9 +104,8 @@ ConvertLoop: sub dx, dx
     cmp ebx,ResultValue
     jge ConvertLoop
     ret
-    
 
 fini:
-    mov eax, 1
+    mov eax, sys_exit
     xor ebx,ebx
     int 80h
