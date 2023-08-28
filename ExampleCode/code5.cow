@@ -1,0 +1,14 @@
+class main{
+    var number;
+    input number;
+    var results;
+    results = 0;
+    if number > 2 then
+        if number > 3 then
+            if number >= 4 then
+                results = 1;
+            endif
+        endif
+    endif
+    print results;
+}

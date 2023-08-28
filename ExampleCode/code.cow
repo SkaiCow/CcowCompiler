@@ -1,0 +1,10 @@
+class main{
+    const myInt = 1;
+    var myVarible;
+    myVarible = myInt + 3;
+    if(myVarible >= myInt){
+        if(myVarible == myInt){
+            
+        }
+    }
+}

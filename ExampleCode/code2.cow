@@ -1,0 +1,7 @@
+class main{
+    const myInt = 2 + 4 * 2;
+    var isgreater = 0;
+    while isgreater < 3 do
+        isgreater = isgreater + 1;
+    endwhile
+}

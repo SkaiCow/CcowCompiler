@@ -1,0 +1,10 @@
+class Pmg1{
+    var a, Bob, Jane, b, c;
+    Bob = 20;
+    Jane = 26;
+    input a;
+    input b;
+    input c;
+    var ans = a * ((Bob + Jane - 10) / 2 * 4)/(b + c);
+    print ans;
+}

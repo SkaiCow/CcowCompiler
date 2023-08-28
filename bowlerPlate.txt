@@ -1,3 +1,6 @@
+#this is stuff that the compiler doesn't auto generate and I had to just paste into the asm file.
+#It wouldn't be the hardest thing to generate all of this but do to time I didn't.
+
 section .data
     userMsg db 'Enter An integer: '
     lenUserMsg equ $-userMsg

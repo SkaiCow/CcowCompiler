@@ -1,0 +1,11 @@
+class pmg1{
+    var factorial;
+    input factorial;
+    var n = 1;
+    var results = 1;
+    while n <= 5 do
+        results = results * n;
+        print results;
+        n = n + 1;
+    endwhile
+}

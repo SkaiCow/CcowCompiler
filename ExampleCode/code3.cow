@@ -1,0 +1,8 @@
+class Pgm1{
+    var M, N, Y, X;
+    N=2;
+    Y=5;
+    input M;
+    X = M * N + 18 - Y;
+    print X;
+}
